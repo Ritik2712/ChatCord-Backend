@@ -15,12 +15,10 @@ const verifyUser = async (req, res, next) => {
   try {
     const payload = await verifyToken(authorization.split(" ")[1]);
     if (payload) {
-      console.log(payload);
       const [user] = await getDb()
         .collection("users")
         .find({ _id: ObjectId(payload.id) }, { password: 0 })
         .toArray();
-      console.log(user);
       if (user === undefined) {
         responseSender(404, "User not found", res);
         return;

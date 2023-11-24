@@ -5,7 +5,6 @@ const OpenAI = require("openai");
 const { ObjectId } = require("mongodb");
 
 const checkPassword = (password, passwordHash) => {
-  console.log("checking");
   return new Promise((resolve, reject) => {
     bcrypt.compare(password, passwordHash, (err, same) => {
       if (err) {
@@ -29,11 +28,9 @@ const verifyToken = (token) =>
 
 const addMessage = async (message, chatId) => {
   try {
-    console.log("yes");
     const update = await getDb()
       .collection("chats")
       .updateOne({ _id: ObjectId(chatId) }, { $push: { messages: message } });
-    console.log(update);
   } catch (e) {
     console.log(e);
     return { error: "error" };

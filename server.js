@@ -32,7 +32,6 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   socket.on("send", async (message, id) => {
-    console.log(id);
     io.to(id).emit("message", message, socket.id, true);
     addMessage(message, id);
     const response = await generateResponse(message, id);

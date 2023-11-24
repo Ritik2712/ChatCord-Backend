@@ -21,11 +21,9 @@ router.route("/signup").post(async (req, res) => {
       name: "Chat 1",
       messages: [],
     });
-    console.log(1, save.insertedId);
     const token = jwt.sign({ id: save.insertedId }, process.env.JWT_SECRET, {
       expiresIn: "10d",
     });
-    console.log(2);
     res.json({ ...save, chatId: id, roomName: "Chat 1", token });
   } catch (e) {
     console.log(JSON.stringify(e));

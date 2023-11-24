@@ -23,12 +23,10 @@ router.route("/add").post([verifyUser], async (req, res) => {
 });
 
 router.route("/get").get([verifyUser], async (req, res) => {
-  console.log(req.user.username);
   const chats = await getDb()
     .collection("chats")
     .find({ creator: req.user.username })
     .toArray();
-  console.log(chats);
   res.json(chats);
 });
 
