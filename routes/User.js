@@ -45,6 +45,7 @@ router.route("/login").post(async (req, res) => {
       .toArray();
     if (user === undefined) throw { code: 401 };
     const CORRECTPASS = await checkPassword(password, user.password);
+    if (!CORRECTPASS) throw { code: 403 };
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "10d",
     });
@@ -52,6 +53,9 @@ router.route("/login").post(async (req, res) => {
   } catch (e) {
     console.log(JSON.stringify(e));
     if (e.code === 401) {
+      responseSender(401, "Incorrect username or password", res);
+      return;
+    } else if (e.code === 403) {
       responseSender(401, "Incorrect username or password", res);
       return;
     }
