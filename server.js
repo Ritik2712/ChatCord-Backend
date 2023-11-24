@@ -11,7 +11,7 @@ const server = http.createServer(app);
 const corsOptions = {
   origin: [
     "http://localhost:3000",
-    "https://chatcord-frontend-production.up.railway.app/",
+    "https://chatcord-frontend-production.up.railway.app",
   ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
@@ -25,7 +25,7 @@ app.use("/api/chat/", require("./routes/Chat"));
 
 const io = new Server(server, {
   cors: {
-    origin: "https://chatcord-frontend-production.up.railway.app/",
+    origin: "https://chatcord-frontend-production.up.railway.app",
     methods: ["GET", "POST"],
   },
 });
